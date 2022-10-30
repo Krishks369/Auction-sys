@@ -1,20 +1,14 @@
-const loadnav = async () => {
+async function loadnav() {
   var ele = document.getElementById("nav_inject");
   var stat = localStorage.getItem("user_data");
   if (stat) {
     ele.innerHTML = `
-    <a href="/frontend" style="float: left">
+    <a href="/frontend/home/index.html" style="float: left">
       <img class="logo" src="../img/logo.jpg" alt="logo" height="70" width="70" />
     </a>
-    <form id="form" onsubmit="search()">
-    <input id="query" />
-      <button>
-        <svg viewBox="0 0 1024 1024">
-          <path class="path1"
-            d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z">
-          </path>
-        </svg>
-      </button>
+    <form id="form" onsubmit="return false">
+    <input id="query"/>
+      <button onclick="search()" class="search">GO</button>
     </form>
     <div class="navbar">  
     <a href="" onclick="logout()">
@@ -27,22 +21,15 @@ const loadnav = async () => {
         <button href="">Add item</button>
       </a>
     </div>
-  `
-  }
-  else {
+  `;
+  } else {
     ele.innerHTML = `
-    <a href="/frontend" style="float: left">
+    <a href="/frontend/home/index.html" style="float: left">
       <img class="logo" src="../img/logo.jpg" alt="logo" height="70" width="70" />
     </a>
-    <form id="form" onsubmit="search()">
+    <form id="form" onsubmit="return false">
     <input id="query" />
-      <button>
-        <svg viewBox="0 0 1024 1024">
-          <path class="path1"
-            d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z">
-          </path>
-        </svg>
-      </button>
+      <button onclick="search()" class="search">GO</button>
     </form>
     <div class="navbar">
       <a href="login/login.html">
@@ -55,26 +42,21 @@ const loadnav = async () => {
         <button href="">About</button>
       </a>
     </div>
-  `
+  `;
   }
-
 }
-
-const logout = async () => {
-  try {
-    localStorage.removeItem("user_data");
-    location.href = `http://localhost:5500/frontend/login/login.html`;
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 const search = async () => {
   var search_query = document.getElementById("query").value;
+  if (search_query.length <= 0) {
+    alert("Empty Seach Query");
+    return false;
+  }
   location.href = `http://localhost:5500/frontend/result/result.html?search_query=${search_query}`;
-}
+  return false;
+};
 
-const verify = async () => {
+const verify_nav = async () => {
   var user_data = localStorage.getItem("user_data");
   if (!user_data) {
     location.href = `http://localhost:5500/frontend/login/login.html`;
@@ -90,4 +72,11 @@ const verify = async () => {
   return;
 };
 
-
+const logout = async () => {
+  try {
+    localStorage.removeItem("user_data");
+    location.href = `http://localhost:5500/frontend/login/login.html`;
+  } catch (error) {
+    alert(error);
+  }
+};

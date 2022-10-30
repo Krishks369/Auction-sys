@@ -1,24 +1,35 @@
+let url = `http://localhost:3000`;
+let main_user;
+const getUser = async () => {
+  var user_data = localStorage.getItem("user_data");
+  user_data = JSON.parse(user_data);
+  const user_id = user_data.user._id;
+  if (user_id) {
+    var res = await fetch(`${url}/api/user/getuser/${user_id}`, {
+      method: "GET", // *GET, POST, PUT, DELETE, etc.
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow", // manual, *follow, error
+      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    });
+    main_user = await Promise.resolve(res.json());
+    main_user = main_user.user;
+    return main_user;
+  }
+};
+
 const verify = async () => {
+  let main_user = await getUser();
   var user_data = localStorage.getItem("user_data");
   user_data = JSON.parse(user_data);
-  var user_data = localStorage.getItem("user_data");
-  user_data = JSON.parse(user_data);
-  document.getElementById("name").innerHTML = user_data.user.name;
+  const listed = main_user.listed;
+  document.getElementById("name").innerHTML =
+    user_data.user.name + " " + user_data.user._id;
   document.getElementById("email").innerHTML = user_data.user.email;
   if (!user_data) {
     window.location.href = `http://localhost:5500/frontend/login/login.html`;
   }
-<<<<<<< Updated upstream
-};
-
-const logout = async () => {
-  try {
-    localStorage.removeItem("user_data");
-    location.href = `http://localhost:5500/frontend/login/login.html`;
-  } catch (error) {
-    console.log(error);
-  }
-=======
   listed.map(async (e) => {
     var item = await fetch(`${url}/api/item/getitem/${e}`, {
       method: "GET", // *GET, POST, PUT, DELETE, etc.
@@ -75,16 +86,13 @@ const logout = async () => {
     item.innerHTML = `<h4 class="prod_name">${itemo?.name}</h4><p>Current Price: ${itemo?.currentPrice}</p><a href="/frontend/item/item.html?item_id=${itemo?._id}">
     <button>View Item</button>
     </a>
-    
     `;
     all_item.appendChild(item);
   });
->>>>>>> Stashed changes
 };
 
 function name() {
   var user_data = localStorage.getItem("user_data");
   user_data = JSON.parse(user_data);
-  let name = document.getElementById("name");
   document.getElementById("username").innerHTML = user_data.user.email;
 }

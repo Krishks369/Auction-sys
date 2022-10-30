@@ -59,13 +59,10 @@ body {
 .status {
   text-transform: uppercase;
   display: flex;
-  align-items: center;
   margin: 6px;
   flex-direction: row-reverse;
   /* background-color: red; */
 }
-<<<<<<< Updated upstream
-=======
 
 .search_text {
   margin: 20px;
@@ -90,4 +87,3 @@ body {
   font-size: larger;
   font-weight: bold;
 }
->>>>>>> Stashed changes

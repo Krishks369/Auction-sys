@@ -14,21 +14,11 @@ const find = async () => {
     referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
   });
   items = await Promise.resolve(items.json());
-  console.log(items);
   items = items.prods;
   var main_cotnainer = document.getElementById("product_grid");
   items.map((e) => {
     var item_container = document.createElement("div");
     item_container.innerHTML = `
-<<<<<<< Updated upstream
-      <div class="product">
-      <img src="${e.img[0]}" alt="" width="140px" height="140px" />
-      <div class="rest_data">
-        <h3 class="title">${e.name}</h3>
-        <div class="prices">
-          <h3 class="cp">Current Price: $${e.currentPrice}</h3>
-          <p class="bp">Base Price: $${e.basePrice}</p>
-=======
     <div class="product">
     <img src="${e.img[0]}" alt="" width="140px" height="140px" />
     <div class="rest_data">
@@ -43,14 +33,11 @@ const find = async () => {
     <button class="view-btn">View</button>
     </a>
     </div>
->>>>>>> Stashed changes
         </div>
-        <div class="status" id="status">
-          <p>${e.status}</p>
         </div>
-      </div>
-    </div>
-      `;
+        `;
     main_cotnainer.appendChild(item_container);
   });
+  var stext = document.getElementById("search_text");
+  stext.innerHTML = `Searching for "${value.toUpperCase()}"`;
 };

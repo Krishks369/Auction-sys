@@ -60,8 +60,7 @@ li a{
     text-decoration: none;
     color: blueviolet;
 }
-
-.bid_amt{
+bid_amt{
   display: inline-block;
   outline: 0;
   border: 0;

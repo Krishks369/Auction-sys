@@ -2,12 +2,8 @@ let url = `http://localhost:3000`;
 const login = async () => {
   const username = document.getElementById("Uname").value;
   const password = document.getElementById("Pass").value;
-<<<<<<< Updated upstream
 
 
-  console.log(username, password);
-=======
->>>>>>> Stashed changes
   const data = {
     email: username,
     password: password,
