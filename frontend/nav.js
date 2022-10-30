@@ -61,14 +61,6 @@ const verify_nav = async () => {
   if (!user_data) {
     location.href = `http://localhost:5500/frontend/login/login.html`;
   }
-  else {
-    var user_data = JSON.parse(user_data);
-    var time = Date.now();
-    if (time - user_data.time > 3600000) {
-      localStorage.removeItem("user_data");
-      location.href = `http://localhost:5500/frontend/login/login.html`;
-    }
-  }
   return;
 };
 

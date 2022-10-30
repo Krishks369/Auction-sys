@@ -15,12 +15,14 @@ const getUser = async () => {
     });
     main_user = await Promise.resolve(res.json());
     main_user = main_user.user;
+    document.cookie = `main_user=${main_user};max-age=${1 * 60}`;
     return main_user;
   }
 };
 
 const verify = async () => {
   let main_user = await getUser();
+  var cookie_user = document.cookie;
   var user_data = localStorage.getItem("user_data");
   user_data = JSON.parse(user_data);
   const listed = main_user.listed;
@@ -45,7 +47,7 @@ const verify = async () => {
     var item = document.createElement("div");
     item.className = "item";
     if (itemo.status == "live" && itemo.heldBy) {
-      item.innerHTML = `<h4 class="prod_name">${itemo?.name.toUpperCase()}</h4></ br><p>Current Price: ${itemo?.currentPrice}</p><a href="/frontend/item/item.html?item_id=${itemo?._id}">
+      item.innerHTML = `<h4>${itemo?.name}</h4><p>Current Price: ${itemo?.currentPrice}</p><a href="/frontend/item/item.html?item_id=${itemo?._id}">
       <button>View Item</button>
       </a>
       <a href="accept/accept.html?prod_id=${itemo._id}&user_id=${user_data.user._id}">
@@ -53,21 +55,21 @@ const verify = async () => {
     </a>
     `;
     } else if (itemo.status == "live") {
-      item.innerHTML = `<h4 class="prod_name">${itemo?.name.toUpperCase()}</h4><p>Current Price: ${itemo?.currentPrice}</p><a href="/frontend/item/item.html?item_id=${itemo?._id}">
+      item.innerHTML = `<h4>${itemo?.name}</h4><p>Current Price: ${itemo?.currentPrice}</p><a href="/frontend/item/item.html?item_id=${itemo?._id}">
       <button>View Item</button>
       </a>
       <p>Item not bid by any one</p>
     `;
     } else {
-      item.innerHTML = `<h4 class="prod_name">${itemo?.name.toUpperCase()}</h4><p>Current Price: ${itemo?.currentPrice}</p><a href="/frontend/item/item.html?item_id=${itemo?._id}">
+      item.innerHTML = `<h4>${itemo?.name}</h4><p>Current Price: ${itemo?.currentPrice}</p><a href="/frontend/item/item.html?item_id=${itemo?._id}">
     <button>View Item</button>
     </a>
-    <h3 class="sold">SOLD</h3>
+    <h3>SOLD</h3>
     `;
     }
+
     all_item.appendChild(item);
   });
-  console.log(main_user);
   const heldItems = main_user.heldItems;
   heldItems.map(async (e) => {
     var item = await fetch(`${url}/api/item/getitem/${e}`, {
@@ -83,9 +85,10 @@ const verify = async () => {
     var all_item = document.getElementById("all_item_bid");
     var item = document.createElement("div");
     item.className = "item";
-    item.innerHTML = `<h4 class="prod_name">${itemo?.name}</h4><p>Current Price: ${itemo?.currentPrice}</p><a href="/frontend/item/item.html?item_id=${itemo?._id}">
+    item.innerHTML = `<h4>${itemo?.name}</h4><p>Current Price: ${itemo?.currentPrice}</p><a href="/frontend/item/item.html?item_id=${itemo?._id}">
     <button>View Item</button>
     </a>
+    
     `;
     all_item.appendChild(item);
   });
