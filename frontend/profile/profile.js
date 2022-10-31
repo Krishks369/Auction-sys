@@ -6,12 +6,10 @@ const getUser = async () => {
   const user_id = user_data.user._id;
   if (user_id) {
     var res = await fetch(`${url}/api/user/getuser/${user_id}`, {
-      method: "GET", // *GET, POST, PUT, DELETE, etc.
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     });
     main_user = await Promise.resolve(res.json());
     main_user = main_user.user;
@@ -36,8 +34,6 @@ const verify = async () => {
       headers: {
         "Content-Type": "application/json",
       },
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     });
     item = await Promise.resolve(item.json());
     var itemo = item.item;
@@ -45,21 +41,29 @@ const verify = async () => {
     var item = document.createElement("div");
     item.className = "item";
     if (itemo.status == "live" && itemo.heldBy) {
-      item.innerHTML = `<h4 class="prod_name">${itemo?.name.toUpperCase()}</h4></ br><p>Current Price: ${itemo?.currentPrice}</p><a href="/frontend/item/item.html?item_id=${itemo?._id}">
+      item.innerHTML = `<h4 class="prod_name">${itemo?.name.toUpperCase()}</h4></ br><p>Current Price: ${
+        itemo?.currentPrice
+      }</p><a href="/frontend/item/item.html?item_id=${itemo?._id}">
       <button>View Item</button>
       </a>
-      <a href="accept/accept.html?prod_id=${itemo._id}&user_id=${user_data.user._id}">
+      <a href="accept/accept.html?prod_id=${itemo._id}&user_id=${
+        user_data.user._id
+      }">
       <button>Accept Offer</button>
     </a>
     `;
     } else if (itemo.status == "live") {
-      item.innerHTML = `<h4 class="prod_name">${itemo?.name.toUpperCase()}</h4><p>Current Price: ${itemo?.currentPrice}</p><a href="/frontend/item/item.html?item_id=${itemo?._id}">
+      item.innerHTML = `<h4 class="prod_name">${itemo?.name.toUpperCase()}</h4><p>Current Price: ${
+        itemo?.currentPrice
+      }</p><a href="/frontend/item/item.html?item_id=${itemo?._id}">
       <button>View Item</button>
       </a>
       <p>Item not bid by any one</p>
     `;
     } else {
-      item.innerHTML = `<h4 class="prod_name">${itemo?.name.toUpperCase()}</h4><p>Current Price: ${itemo?.currentPrice}</p><a href="/frontend/item/item.html?item_id=${itemo?._id}">
+      item.innerHTML = `<h4 class="prod_name">${itemo?.name.toUpperCase()}</h4><p>Current Price: ${
+        itemo?.currentPrice
+      }</p><a href="/frontend/item/item.html?item_id=${itemo?._id}">
     <button>View Item</button>
     </a>
     <h3 class="sold">SOLD</h3>
@@ -67,7 +71,6 @@ const verify = async () => {
     }
     all_item.appendChild(item);
   });
-  console.log(main_user);
   const heldItems = main_user.heldItems;
   heldItems.map(async (e) => {
     var item = await fetch(`${url}/api/item/getitem/${e}`, {
@@ -75,8 +78,6 @@ const verify = async () => {
       headers: {
         "Content-Type": "application/json",
       },
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     });
     item = await Promise.resolve(item.json());
     var itemo = item.item;

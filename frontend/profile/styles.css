@@ -43,7 +43,6 @@ nav button {
   outline: 0;
   padding: 12px 14px;
   text-align: center;
-  text-rendering: geometricprecision;
   text-transform: none;
   vertical-align: middle;
   margin-top: 1.1em;
@@ -53,7 +52,6 @@ nav button {
 nav button:hover,
 nav button:active {
   background-color: initial;
-  background-position: 0 0;
   color: white;
 }
 
@@ -153,20 +151,7 @@ content {
   text-decoration: none;
   transition: box-shadow 0.2s ease-in-out;
   user-select: none;
-  touch-action: manipulation;
   white-space: nowrap;
-}
-
-.button:not([disabled]):focus {
-  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
-    -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
-    0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
-}
-
-.button:not([disabled]):hover {
-  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
-    -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
-    0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
 }
 
 .all_item {
@@ -194,7 +179,7 @@ content {
   margin: 10px;
   border: 2px solid #333;
   padding: px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -212,13 +197,18 @@ content {
   height: 30px;
   padding: 0px 15px;
   text-shadow: rgb(0 0 0 / 25%) 0px 3px 8px;
-  background: linear-gradient(92.88deg, rgb(69, 94, 181) 9.16%, rgb(86, 67, 204) 43.89%, rgb(103, 63, 215) 64.72%);
+  background: linear-gradient(
+    92.88deg,
+    rgb(69, 94, 181) 9.16%,
+    rgb(86, 67, 204) 43.89%,
+    rgb(103, 63, 215) 64.72%
+  );
 }
 
-.sold{
+.sold {
   color: #001253;
   font-size: larger;
 }
-.prod_name{
-  color: #E14D2A
+.prod_name {
+  color: #e14d2a;
 }

@@ -16,8 +16,6 @@ const getitem = async () => {
     headers: {
       "Content-Type": "application/json",
     },
-    redirect: "follow", // manual, *follow, error
-    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
   });
   item = await Promise.resolve(item.json());
   if (item.status != "success") {
@@ -115,8 +113,6 @@ const bid = async () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(bid_data),
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     });
     res = await Promise.resolve(res.json());
     if (res.status == "success") {

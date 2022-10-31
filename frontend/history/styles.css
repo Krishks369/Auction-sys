@@ -1,6 +1,7 @@
 * {
   font-family: sans-serif;
 }
+
 .product_grid {
   display: grid;
   grid-template-columns: repeat(1, 1.3fr);

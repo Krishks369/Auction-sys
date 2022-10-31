@@ -7,12 +7,10 @@ const getUser = async () => {
   const user_id = user_data.user._id;
   if (user_id) {
     var res = await fetch(`${url}/api/user/getuser/${user_id}`, {
-      method: "GET", // *GET, POST, PUT, DELETE, etc.
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     });
     main_user = await Promise.resolve(res.json());
     main_user = main_user.user;
@@ -22,7 +20,6 @@ const getUser = async () => {
 
 const fetchHistory = async () => {
   main_user = await getUser();
-  console.log(main_user);
   var orderHistory = main_user.bought;
   var product_container = document.getElementById("product_grid");
   orderHistory.map(async (e) => {
@@ -31,8 +28,6 @@ const fetchHistory = async () => {
       headers: {
         "Content-Type": "application/json",
       },
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     });
     item = await Promise.resolve(item.json());
     item = item.item;

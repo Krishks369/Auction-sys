@@ -7,10 +7,6 @@ const {
   confirm,
   updatePw,
 } = require("../controllers/auth");
-const User = require("../models/User");
-const { decrypt } = require("../lib/tokenizer");
-const sendEmail = require("../lib/sendEmail");
-const crypto = require("crypto");
 
 //Create user account-->HB
 router.post("/create", create);
@@ -29,6 +25,5 @@ router.post("/confirm", confirm);
 
 //Update password alone-->RJS
 router.post("/updatepassword", updatePw);
-
 
 module.exports = router;

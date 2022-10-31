@@ -45,7 +45,6 @@ nav button {
   outline: 0;
   padding: 12px 14px;
   text-align: center;
-  text-rendering: geometricprecision;
   user-select: none;
   vertical-align: middle;
   margin-top: 1.1em;
@@ -174,16 +173,6 @@ nav input {
 .fade {
   animation-name: fade;
   animation-duration: 1.5s;
-}
-
-@keyframes fade {
-  from {
-    opacity: 0.4;
-  }
-
-  to {
-    opacity: 1;
-  }
 }
 
 .nav_inj_link {

@@ -27,8 +27,6 @@ const add = async (img_link) => {
     var baseprice = document.getElementById("baseprice").value;
     var minInc = document.getElementById("minInc").value;
     var img = [img_link];
-    var proof = [];
-    var proof = [];
     let user = localStorage.getItem("user_data");
     user = JSON.parse(user);
     const data = {
@@ -39,15 +37,13 @@ const add = async (img_link) => {
       minInc: Number(minInc),
       desc: desc,
       category: ["collectibles & art", "electronics"],
-      proof: proof, //img and proof are in array format
+      proof: [], //img and proof are in array format
     };
     const res = await fetch(`${url}/api/item/createitem`, {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       headers: {
         "Content-Type": "application/json",
       },
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-rerer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
       body: JSON.stringify(data), // body data type must match "Content-Type" header
     });
     var user_data = await Promise.resolve(res.json());

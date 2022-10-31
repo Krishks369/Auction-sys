@@ -17,8 +17,6 @@ const accept = async () => {
       body: JSON.stringify({
         uid,
       }),
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     });
     res = await Promise.resolve(res.json());
     if ((res.status = "success")) {
@@ -29,12 +27,10 @@ const accept = async () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          uid:res.heldBy,
-          id:pid,
+          uid: res.heldBy,
+          id: pid,
           transactionid,
         }),
-        redirect: "follow", // manual, *follow, error
-        referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
       });
       resp = await Promise.resolve(resp.json());
       console.log(resp);
@@ -44,9 +40,7 @@ const accept = async () => {
       }
     } else {
       alert("Error on accepting the offer");
-      // location.href = "/frontend/profile/profile.html";
     }
   } else {
-    // location.href = "/frontend/profile/profile.html";
   }
 };

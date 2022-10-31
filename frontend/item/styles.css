@@ -48,19 +48,18 @@ img {
 }
 .span_content {
   color: chocolate;
-
 }
 .status_span {
   color: green;
 }
-.doc_list{
-    list-style: square;
+.doc_list {
+  list-style: square;
 }
-li a{
-    text-decoration: none;
-    color: blueviolet;
+li a {
+  text-decoration: none;
+  color: blueviolet;
 }
-bid_amt{
+.bid_amt {
   display: inline-block;
   outline: 0;
   border: 0;
@@ -72,5 +71,10 @@ bid_amt{
   height: 30px;
   padding: 0px 15px;
   text-shadow: rgb(0 0 0 / 25%) 0px 3px 8px;
-  background: linear-gradient(92.88deg, rgb(69, 94, 181) 9.16%, rgb(86, 67, 204) 43.89%, rgb(103, 63, 215) 64.72%);
+  background: linear-gradient(
+    92.88deg,
+    rgb(69, 94, 181) 9.16%,
+    rgb(86, 67, 204) 43.89%,
+    rgb(103, 63, 215) 64.72%
+  );
 }

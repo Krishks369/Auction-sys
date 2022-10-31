@@ -12,7 +12,6 @@ const create = async () => {
   try {
     var pass = document.getElementById("Pass").value;
     var cpass = document.getElementById("CPass").value;
-
     var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
     let regextest = regex.test(pass);
     if (regextest == false) {
@@ -36,17 +35,15 @@ const create = async () => {
       headers: {
         "Content-Type": "application/json",
       },
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
       body: JSON.stringify(userObject), // body data type must match "Content-Type" header
     });
     var user_data = await Promise.resolve(res.json());
     if (user_data.status == "failure") {
       alert(user_data.msg);
-      return
+      return;
     }
-    location.href = "http://localhost:5500/frontend/login/login.html"
-    } catch (error) {
+    location.href = "http://localhost:5500/frontend/login/login.html";
+  } catch (error) {
     alert(error);
   }
 };

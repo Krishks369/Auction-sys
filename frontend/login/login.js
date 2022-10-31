@@ -3,7 +3,6 @@ const login = async () => {
   const username = document.getElementById("Uname").value;
   const password = document.getElementById("Pass").value;
 
-
   const data = {
     email: username,
     password: password,
@@ -13,8 +12,6 @@ const login = async () => {
     headers: {
       "Content-Type": "application/json",
     },
-    redirect: "follow", // manual, *follow, error
-    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     body: JSON.stringify(data), // body data type must match "Content-Type" header
   });
   var user_data = await Promise.resolve(res.json());

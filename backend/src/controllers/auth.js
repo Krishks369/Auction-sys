@@ -47,12 +47,10 @@ exports.create = async (req, res, next) => {
         name: data.name,
         email: data.email,
         password: hashedPassword,
-        ethAddr: data.ethAddr,
       });
       await user.save();
       const eData = encrypt(data.email);
       const url = `${process.env.FRONTEND_URL}?token=${eData.encryptedData}&id=${eData.iv}`;
-      console.log(url);
       sendEmail(
         user.email,
         `Please verify your email for further access of the applications.\nVerify using the link give below.\nURL:${url}`,

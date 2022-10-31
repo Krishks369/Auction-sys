@@ -49,7 +49,6 @@ exports.createitem = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
-    console.log(error);
   }
 };
 
@@ -238,7 +237,7 @@ exports.acceptBid = async (req, res, next) => {
     res.status(200).json({
       status: "success",
       msg: "Item status updated.",
-      heldBy:item.heldBy,
+      heldBy: item.heldBy,
     });
   } catch (error) {
     next(error);
@@ -305,7 +304,6 @@ exports.getByCat = async (req, res, next) => {
 exports.findprod = async (req, res, next) => {
   try {
     const { search_txt } = req.params;
-    console.log(search_txt);
     const prods = await Item.find(
       { $text: { $search: search_txt } },
       { score: { $meta: "textScore" } }
@@ -318,22 +316,3 @@ exports.findprod = async (req, res, next) => {
     next(error);
   }
 };
-
-// exports.getByCat = async(req,res,next)=>{
-//   try {
-//     const cats = [
-//       "collectibles & art",
-//       "fashion",
-//       "home & garden",
-//       "auto parts & accessories",
-//       "musical instruments & gears",
-//       "spoorting goods",
-//       "toys & hobbies",
-//       "video games & consoles",
-//       "business & international",
-//       "electronics",
-//     ];
-//   } catch (error) {
-//     next(error);
-//   }
-// }
