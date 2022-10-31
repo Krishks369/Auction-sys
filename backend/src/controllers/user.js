@@ -247,6 +247,8 @@ exports.makepayment = async (req, res, next) => {
         item.status = "sold";
         item.boughtBy = user._id;
         await item.save();
+        console.log(user);
+        sendEmail(user.email, "Bought the item", "Bought the item", true);
         res.status(200).json({
           status: "success",
           msg: "Payment recorded",
