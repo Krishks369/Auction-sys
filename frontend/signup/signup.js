@@ -43,10 +43,8 @@ const create = async () => {
     var user_data = await Promise.resolve(res.json());
     if (user_data.status == "failure") {
       alert(user_data.msg);
-      return
     }
-    location.href = "http://localhost:5500/frontend/login/login.html"
-    } catch (error) {
+  } catch (error) {
     alert(error);
   }
 };

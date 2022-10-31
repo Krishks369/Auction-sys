@@ -28,9 +28,9 @@ const find = async () => {
     <p class="bp">Base Price: $${e.basePrice}</p>
     </div>
     <div class="status" id="status">
-    <p class="stat">${e.status}</p>
+    <p>${e.status}</p>
     <a href="/frontend/item/item.html?item_id=${e?._id}">
-    <button class="view-btn">View</button>
+    <button>View</button>
     </a>
     </div>
         </div>
