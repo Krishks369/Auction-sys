@@ -13,6 +13,7 @@ const getUser = async () => {
     });
     main_user = await Promise.resolve(res.json());
     main_user = main_user.user;
+    document.cookie = `main_user=${main_user};max-age=${1 * 60}`;
     return main_user;
   }
 };
@@ -20,6 +21,7 @@ const getUser = async () => {
 const verify = async () => {
   let main_user = await getUser();
   var user_data = localStorage.getItem("user_data");
+  var cookie_user = document.cookie;
   user_data = JSON.parse(user_data);
   const listed = main_user.listed;
   document.getElementById("name").innerHTML =
