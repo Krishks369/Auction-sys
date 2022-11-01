@@ -51,11 +51,6 @@ const ItemSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       default: null,
     },
-    proof: {
-      //Req
-      type: [String],
-      default: [],
-    },
     category: {
       //Req
       type: [String],

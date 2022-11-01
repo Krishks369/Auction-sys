@@ -30,6 +30,7 @@ const verify = async () => {
   if (!user_data) {
     window.location.href = `http://localhost:5500/frontend/login/login.html`;
   }
+  console.log(cookie_user);
   listed.map(async (e) => {
     var item = await fetch(`${url}/api/item/getitem/${e}`, {
       method: "GET", // *GET, POST, PUT, DELETE, etc.

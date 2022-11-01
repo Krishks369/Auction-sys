@@ -1,7 +1,6 @@
 const { default: mongoose } = require("mongoose");
 const Item = require("../models/Item");
 const User = require("../models/User");
-const sendEamil = require("../lib/sendEmail");
 const sendEmail = require("../lib/sendEmail");
 
 exports.createitem = async (req, res, next) => {
@@ -38,7 +37,6 @@ exports.createitem = async (req, res, next) => {
       owner: user._id,
       desc,
       category,
-      proof,
     });
     await item.save();
     user.listed.push(item._id);
@@ -101,13 +99,9 @@ exports.reject = async (req, res, next) => {
     if ((item.boughtBy = null && item.status == "sold")) {
       const subject = `${item.name} is live again`;
       const emailBody = `The previous offer for ${item.name} has been rejected & has been made live again`;
-      sendEamil(item.heldBy, emailBody, subject);
+      sendEmail(item.heldBy, emailBody, subject);
       item.status = "live";
       item.heldBy = null;
-      item.watchers.map(async (w) => {
-        const u = await User.findById(w, { email: 1, _id: 0 });
-        sendEamil(u.email, emailBody, subject);
-      });
       await User.findByIdAndUpdate(item.heldBy, {
         $pull: {
           heldItems: item_id,
@@ -252,49 +246,6 @@ exports.updateItem = async (req, res, next) => {
     res.status(200).json({
       status: "success",
       item,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-exports.getByCat = async (req, res, next) => {
-  try {
-    const cats = [
-      "collectibles & art",
-      "electronics",
-      "fashion",
-      "home & garden",
-      "auto parts & accessories",
-      "musical instruments & gears",
-      "spoorting goods",
-      "toys & hobbies",
-      "video games & consoles",
-      "business & international",
-    ];
-    const data = await Item.find(
-      {
-        category: {
-          $in: cats,
-        },
-      },
-      {
-        name: 1,
-        basePrice: 1,
-        currentPrice: 1,
-        owner: 1,
-        img: 1,
-      }
-    )
-      .sort({
-        createdAt: -1,
-      })
-      .limit(50);
-    let count = data.length;
-    res.status(200).json({
-      status: "success",
-      data,
-      count,
     });
   } catch (error) {
     next(error);

@@ -19,6 +19,7 @@ const accept = async () => {
       }),
     });
     res = await Promise.resolve(res.json());
+    console.log(res);
     if ((res.status = "success")) {
       var transactionid = "23456789";
       var resp = await fetch(`${url}/api/user/pay`, {

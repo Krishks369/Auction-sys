@@ -73,13 +73,6 @@ exports.placebid = async (req, res, next) => {
       item.currentPrice = amount;
       item.heldBy = user._id;
       user.heldItems.push(item._id);
-      item.watchers.forEach(async (id) => {
-        const user = await User.findById(mongoose.Types.ObjectId(id), {
-          email: 1,
-          _id: 0,
-        });
-        sendEmail(user.email, emailData, subject);
-      });
       await item.save();
       await user.save();
       res.status(200).json({
@@ -97,123 +90,14 @@ exports.placebid = async (req, res, next) => {
   }
 };
 
-exports.addToWatchlist = async (req, res, next) => {
-  try {
-    const { email, id } = req.body;
-    const user = await User.findOne({
-      email: email,
-    });
-    const item = await Item.findById(mongoose.Types.ObjectId(id));
-    if (!item) {
-      return res.status(404).json({
-        status: "failure",
-        msg: "Item doesnt exists",
-      });
-    }
-    if (!user) {
-      return res.status(404).json({
-        status: "failure",
-        msg: "User doesnt exists",
-      });
-    }
-    if (user.watchlist.includes(id)) {
-      return res.status(404).json({
-        status: "failure",
-        msg: "Item already exists",
-      });
-    }
-    user.watchlist.push(id);
-    item.watchers.push(user._id);
-    await user.save();
-    await item.save();
-    return res.status(200).json({
-      status: "success",
-      msg: "Item added to watchlist",
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-exports.removeFromWatchlist = async (req, res, next) => {
-  try {
-    const { email, id } = req.body;
-    const user = await User.findOne({
-      email: email,
-    });
-    const item = await Item.findById(mongoose.Types.ObjectId(id));
-    if (!item) {
-      return res.status(404).json({
-        status: "failure",
-        msg: "Item doesnt exists",
-      });
-    }
-    if (!user) {
-      return res.status(404).json({
-        status: "failure",
-        msg: "User doesnt exists",
-      });
-    }
-    if (user.watchlist.includes(id)) {
-      let index = user.watchlist.indexOf(id);
-      user.watchlist = user.watchlist.splice(index, 1);
-      let windex = item.watchers.indexOf(user._id);
-      item.watchers = item.watchers.splice(windex, 1);
-      await item.save();
-      await user.save();
-      return res.status(200).json({
-        status: "success",
-        msg: "Item removed from watchlist",
-      });
-    }
-    return res.status(402).json({
-      status: "failure",
-      msg: "Item doesnt exists in watchlist",
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-exports.getWatchlist = async (req, res, next) => {
-  try {
-    const { email, pgNo, limit } = req.body;
-    let user = await User.findOne(
-      {
-        email,
-      },
-      {
-        watchlist: {
-          $slice: [limit * (pgNo - 1), limit],
-        },
-      }
-    );
-    if (user) {
-      const list = user.watchlist;
-      return res.status(200).json({
-        status: "success",
-        list,
-      });
-    }
-    return res.status(404).json({
-      status: "failure",
-      msg: "User doesnt exists",
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
 exports.makepayment = async (req, res, next) => {
   try {
     const { uid, id, transactionid } = req.body;
-    console.log(req.body);
     const user = await User.findById(mongoose.Types.ObjectId(uid), {
       _id: 1,
       heldItems: 1,
     });
     const item = await Item.findById(mongoose.Types.ObjectId(id));
-    console.log(item);
     if (!item) {
       return res.status(404).json({
         status: "failure",
@@ -247,7 +131,6 @@ exports.makepayment = async (req, res, next) => {
         item.status = "sold";
         item.boughtBy = user._id;
         await item.save();
-        console.log(user);
         sendEmail(user.email, "Bought the item", "Bought the item", true);
         res.status(200).json({
           status: "success",
